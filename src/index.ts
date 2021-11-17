@@ -7,6 +7,8 @@ const CACHE_KEY_ALL = "all";
 const client = new CoinGecko();
 const app = express();
 
+const MAX_PAGE_FETCH = 6; // per page 250 results
+
 app.use(function (req, res, next) {
   res.header("Content-Type", "application/json");
   next();
@@ -27,7 +29,7 @@ app.get("/all", async (req, res: Response<IAllPrice[]>) => {
   }
   let response: IAllPrice[] = [];
   const proms = [];
-  for (let page = 1; page < 5; page++) {
+  for (let page = 1; page <= MAX_PAGE_FETCH; page++) {
     proms.push(
       client.coins.all({
         page,
