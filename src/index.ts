@@ -6,6 +6,7 @@ const cache = new NodeCache({ stdTTL: 60, checkperiod: 60 });
 const CACHE_KEY_ALL = "all";
 const client = new CoinGecko();
 const app = express();
+const PORT = process.env.PORT || 80;
 
 const MAX_PAGE_FETCH = 6; // per page 250 results
 
@@ -53,6 +54,6 @@ app.get("/all", async (req, res: Response<IAllPrice[]>) => {
   res.json(response);
 });
 
-app.listen(3000, () => {
-  console.log("The application is listening on port 3000!");
+app.listen(PORT, () => {
+  console.log(`The application is listening on port ${PORT}!`);
 });
